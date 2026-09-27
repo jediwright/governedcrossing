@@ -1,0 +1,163 @@
+{
+  "lexicon": 1,
+  "id": "org.governedcrossing.temp.crossingRecord",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "DRAFT in the temp namespace; may change without notice. A projection of a seam:CrossingRecord whose canonical copy lives on the emitting party's own substrate. Published publicly only when the crossing itself was public; private crossings publish only an org.governedcrossing.temp.commitment. Crossing records are intentionally non-repudiable (every record carries the emitter's inline signature), a deliberate difference from permissioned-space deniability. They carry digests and references of what crossed, never the crossed content. Value lists are open; a record conforms only when it uses the registered values of the seam:CrossingRecord vocabulary. See CONFORMANCE.md.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "recordId",
+          "recordType",
+          "emittedAt",
+          "emittedBy",
+          "provenanceStatus",
+          "governanceEvent",
+          "boundType"
+        ],
+        "properties": {
+          "recordId": {
+            "type": "string",
+            "format": "uri",
+            "maxLength": 2048,
+            "description": "Substrate-independent identifier of the canonical record; not the AT-URI of this projection."
+          },
+          "recordType": {
+            "type": "string",
+            "knownValues": [
+              "gate-check",
+              "lineage",
+              "provenance",
+              "verification",
+              "term-amendment",
+              "objection",
+              "consent",
+              "resolution",
+              "standing-registry-entry",
+              "delegation",
+              "crossing-intent",
+              "crossing-completion"
+            ],
+            "maxLength": 64
+          },
+          "emittedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Author-declared."
+          },
+          "emittedBy": {
+            "type": "string",
+            "format": "did",
+            "description": "Emitting party; also the `$sig.repository` value for every signature on this record."
+          },
+          "provenanceStatus": {
+            "type": "string",
+            "knownValues": [
+              "asserted",
+              "confirmed",
+              "contested",
+              "superseded"
+            ],
+            "maxLength": 32
+          },
+          "provenanceStatusBasis": {
+            "type": "string",
+            "maxLength": 1000,
+            "maxGraphemes": 300,
+            "description": "Required when provenanceStatus is not asserted."
+          },
+          "supersededBy": {
+            "type": "string",
+            "format": "uri",
+            "maxLength": 2048,
+            "description": "Required when provenanceStatus is superseded."
+          },
+          "chainReference": {
+            "type": "ref",
+            "ref": "org.governedcrossing.temp.defs#recordRef",
+            "description": "Immediately upstream record. For crossing-completion: the crossing-intent record."
+          },
+          "chainDepth": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Required when chainReference is present."
+          },
+          "lineageAnchorType": {
+            "type": "string",
+            "description": "Required when chainReference is present. witness-signed and timestamp-signed are locked pending infrastructure; countersignatures do not unlock them.",
+            "knownValues": [
+              "author-declared",
+              "witness-signed",
+              "timestamp-signed"
+            ],
+            "maxLength": 32
+          },
+          "governanceEvent": {
+            "type": "string",
+            "knownValues": [
+              "gate-check",
+              "schema-change",
+              "action-provenance",
+              "code-change-verification",
+              "term-amendment-proposal",
+              "term-amendment-objection",
+              "term-amendment-consent",
+              "term-amendment-resolution",
+              "standing-constitution",
+              "standing-amendment",
+              "delegation-grant",
+              "substrate-crossing"
+            ],
+            "maxLength": 64
+          },
+          "boundType": {
+            "type": "string",
+            "description": "Exposure claim. Ordered by admissible claim strength: exposure-unbounded < exposure-upper-bound < confirmation < attestation. The value must match the architecture's actual enforcement; overclaiming is inadmissible.",
+            "knownValues": [
+              "exposure-unbounded",
+              "exposure-upper-bound",
+              "confirmation",
+              "attestation"
+            ],
+            "maxLength": 64
+          },
+          "evidenceDecay": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "ISO 8601 date after which the record's claims require re-verification."
+          },
+          "crossingIntent": {
+            "type": "ref",
+            "ref": "org.governedcrossing.temp.defs#crossingIntent",
+            "description": "Required when recordType is crossing-intent."
+          },
+          "crossingCompletion": {
+            "type": "ref",
+            "ref": "org.governedcrossing.temp.defs#crossingCompletion",
+            "description": "Required when recordType is crossing-completion."
+          },
+          "salt": {
+            "type": "bytes",
+            "minLength": 16,
+            "maxLength": 64,
+            "description": "Random salt. Required on any record for which a commitment is published, so a low-entropy record cannot be confirmed by guessing."
+          },
+          "signatures": {
+            "type": "array",
+            "description": "Attestation Specification v1.0 signatures array. A conformant crossing record carries the emitter's inline signature (role emitter). On private crossings countersignatures are inline only; remote strongRef countersignatures only on public crossings. A strongRef to the emitter's own commitment is permitted.",
+            "items": {
+              "type": "union",
+              "refs": [
+                "org.governedcrossing.temp.defs#signature",
+                "com.atproto.repo.strongRef"
+              ]
+            },
+            "maxLength": 16
+          }
+        }
+      }
+    }
+  }
+}

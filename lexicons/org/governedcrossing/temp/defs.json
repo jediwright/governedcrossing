@@ -1,0 +1,263 @@
+{
+  "lexicon": 1,
+  "id": "org.governedcrossing.temp.defs",
+  "description": "DRAFT in the temp namespace; may change without notice. Shared definitions for governed crossing records: the inline signature type, record references, and the substrate-crossing extensions. An AT Protocol binding of the seam:CrossingRecord vocabulary (https://jediwright.github.io/seam-stack/vocab/crossing-record/0.1#), which is the semantic contract.",
+  "defs": {
+    "signature": {
+      "type": "object",
+      "description": "Inline signature per the ATProtocol Attestation Specification v1.0. Signs the CIDv1 (DAG-CBOR, sha2-256) of the record with `signatures` removed and a `$sig` object inserted, where `$sig` is this signature object minus `signature`, plus `repository` set to the record's `emittedBy` DID. Because `key` and `role` enter `$sig`, each signer's CID is distinct; every signer covers the same record content. ECDSA P-256 or K-256, low-S.",
+      "required": [
+        "signature",
+        "key"
+      ],
+      "properties": {
+        "signature": {
+          "type": "bytes",
+          "description": "ECDSA signature over the CID bytes, low-S form."
+        },
+        "key": {
+          "type": "string",
+          "description": "Full DID verification method reference (did:...#fragment). A dedicated verification method is advised so key rotation does not orphan signatures.",
+          "maxLength": 2048
+        },
+        "role": {
+          "type": "string",
+          "description": "Signer's role in the crossing.",
+          "knownValues": [
+            "emitter",
+            "counterparty",
+            "institution"
+          ],
+          "maxLength": 64
+        }
+      }
+    },
+    "recordRef": {
+      "type": "object",
+      "description": "Reference to another crossing record. `recordId` is the record's substrate-independent identifier; `cid` is that record's emitter inline-signature CID (computed with the emitter signature's `$sig`).",
+      "required": [
+        "recordId",
+        "cid"
+      ],
+      "properties": {
+        "recordId": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "cid": {
+          "type": "string",
+          "format": "cid"
+        }
+      }
+    },
+    "sourceLineageEntry": {
+      "type": "object",
+      "description": "One granted input the crossed content was assembled from. Informational lineage; the binding digest is crossingIntent.authorizedContentDigest.",
+      "required": [
+        "documentURI",
+        "documentCID",
+        "contentDigest"
+      ],
+      "properties": {
+        "documentURI": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "documentCID": {
+          "type": "string",
+          "maxLength": 4096,
+          "description": "Content address or heads of the input document at assembly."
+        },
+        "contentDigest": {
+          "type": "string",
+          "maxLength": 256
+        }
+      }
+    },
+    "crossingIntent": {
+      "type": "object",
+      "description": "Instance extension for recordType crossing-intent (governanceEvent substrate-crossing). Emitted before the crossing act. Carries digests and references of what crosses, never the content.",
+      "required": [
+        "grantorDID",
+        "targetDID",
+        "identityCustodyClass",
+        "sourceDocumentURI",
+        "sourceDocumentCID",
+        "authorizedContentDigest",
+        "targetLexicon",
+        "targetService",
+        "crossingType",
+        "regimeAcknowledgment",
+        "declaredBoundType",
+        "recallSemantics",
+        "crossingTimeoutHorizon",
+        "grantReference",
+        "gateResult",
+        "gateCheckedAt"
+      ],
+      "properties": {
+        "grantorDID": {
+          "type": "string",
+          "format": "did"
+        },
+        "targetDID": {
+          "type": "string",
+          "format": "did"
+        },
+        "identityCustodyClass": {
+          "type": "string",
+          "knownValues": [
+            "self-custodied",
+            "mixed-custody",
+            "provider-custodied"
+          ],
+          "maxLength": 64
+        },
+        "sourceDocumentURI": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "sourceDocumentCID": {
+          "type": "string",
+          "maxLength": 4096,
+          "description": "Content address or heads of the source document at mint; backdating-detectability anchor, no verification claim."
+        },
+        "authorizedContentDigest": {
+          "type": "string",
+          "maxLength": 256,
+          "description": "Digest of the content authorized to cross, bound at grant time."
+        },
+        "sourceLineage": {
+          "type": "array",
+          "items": {
+            "type": "ref",
+            "ref": "#sourceLineageEntry"
+          },
+          "maxLength": 256
+        },
+        "targetLexicon": {
+          "type": "string",
+          "format": "nsid",
+          "description": "Schema of the record in the target regime (AT Protocol crossings)."
+        },
+        "targetService": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048,
+          "description": "Service the crossing writes to (a PDS for AT Protocol)."
+        },
+        "crossingType": {
+          "type": "string",
+          "knownValues": [
+            "publication"
+          ],
+          "maxLength": 64
+        },
+        "crossingMode": {
+          "type": "string",
+          "description": "Provisional; may change before the stable namespace. data-transfer: content moves into the target regime (default when absent). access-change: the record stays in place and its access regime changes. An access change counts as a crossing only when it moves data into a different regime, never for sharing inside the party's own system.",
+          "knownValues": [
+            "data-transfer",
+            "access-change"
+          ],
+          "maxLength": 64
+        },
+        "regimeAcknowledgment": {
+          "type": "string",
+          "maxLength": 3000,
+          "maxGraphemes": 1000,
+          "description": "Declared acknowledgment; the gate checks presence, not authorship."
+        },
+        "declaredBoundType": {
+          "type": "string",
+          "knownValues": [
+            "exposure-unbounded",
+            "exposure-upper-bound",
+            "confirmation",
+            "attestation"
+          ],
+          "maxLength": 64
+        },
+        "recallSemantics": {
+          "type": "string",
+          "knownValues": [
+            "enforced-stream-close",
+            "propagated-request",
+            "none"
+          ],
+          "maxLength": 64
+        },
+        "crossingTimeoutHorizon": {
+          "type": "string",
+          "format": "datetime"
+        },
+        "crossingGrantHorizon": {
+          "type": "string",
+          "format": "datetime",
+          "description": "Optional not-before horizon."
+        },
+        "grantReference": {
+          "type": "string",
+          "maxLength": 1024
+        },
+        "gateResult": {
+          "type": "string",
+          "description": "blocked records are never projected publicly (no commitment); they stay on the party's substrate.",
+          "knownValues": [
+            "pass",
+            "blocked"
+          ],
+          "maxLength": 32
+        },
+        "gateCheckedAt": {
+          "type": "string",
+          "format": "datetime"
+        }
+      }
+    },
+    "crossingCompletion": {
+      "type": "object",
+      "description": "Instance extension for recordType crossing-completion (governanceEvent substrate-crossing). Emitted only after the crossing act succeeds; the intent is referenced by the record's chainReference. For access-change crossings the target is the record that stayed in place, at the moment its access changed.",
+      "required": [
+        "crossingTargetURI",
+        "crossingTargetCID",
+        "completedAt",
+        "crossingOutcome"
+      ],
+      "properties": {
+        "crossingTargetURI": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "crossingTargetCID": {
+          "type": "string",
+          "format": "cid"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "datetime"
+        },
+        "targetAcceptedAt": {
+          "type": "string",
+          "format": "datetime",
+          "description": "When the target service accepted the write (a PDS for AT Protocol)."
+        },
+        "relayIngestedAt": {
+          "type": "string",
+          "format": "datetime"
+        },
+        "crossingOutcome": {
+          "type": "string",
+          "knownValues": [
+            "completed"
+          ],
+          "maxLength": 32
+        }
+      }
+    }
+  }
+}

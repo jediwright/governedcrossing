@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "org.governedcrossing.temp.commitment",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "DRAFT in the temp namespace; may change without notice. Public commitment to a privately held crossing record, published in the emitter's own repository. A remote proof per the ATProtocol Attestation Specification v1.0: `cid` is the CIDv1 of the committed record with `signatures` removed and `$sig` inserted, where `$sig` is this commitment record minus `cid`, plus `repository` set to the committed record's `emittedBy`. This CID therefore differs from the emitter inline-signature CID. Discloses existence, emitter and time only. Never published for blocked crossings.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "cid",
+          "emittedBy",
+          "committedAt"
+        ],
+        "properties": {
+          "cid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Remote-proof CID of the committed record."
+          },
+          "emittedBy": {
+            "type": "string",
+            "format": "did",
+            "description": "Emitting party of the committed record; must equal the housing repository's DID."
+          },
+          "committedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "previous": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Optional link to the emitter's previous commitment."
+          }
+        }
+      }
+    }
+  }
+}
