@@ -34,3 +34,7 @@ The lexicons list every value currently registered for the vocabulary's controll
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+---
+
+MIT License · Built with AI-collaborative methods · Intellectual direction and authorial responsibility: Jedi Wright · [Systems of Thought](https://www.systemsofthought.com/) · UX Minds, LLC
