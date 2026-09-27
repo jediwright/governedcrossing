@@ -7,11 +7,11 @@
 - **What this is.** A proposed design for recording a change in who can see or act on data where the data itself does not move (an access change): new lexicon definitions and properties (Appendix A) and new conformance wording (Appendix B). It is written against the repository as of [`b5723e3`](https://github.com/jediwright/governedcrossing/tree/b5723e3dcf9940bd9ff6b352870e1ce934aa7bac).
 - **Review so far.** Internal review only; no independent review. Four points have had no review at all: Q1 to Q4 below. Q5 rests on a reading of another project's source code that has not been tested at runtime.
 - **Before adoption it waits on** two things: this feedback window, and registration of its new values in the vocabulary (see the [README](../README.md#relation-to-the-vocabulary)). After that, this file is either replaced by adopted text in the lexicons and `CONFORMANCE.md`, or marked withdrawn here. It will not be deleted without notice.
-- **Feedback window.** Open until **Monday 12 October 2026, end of day US Eastern**. The close date is fixed. Prepared 2026-09-27.
+- **Feedback window.** Open until **Monday 26 October 2026, end of day US Eastern**. The window may be extended if people ask for more time; it will not be shortened. Prepared 2026-09-27.
 
 **Open questions**
 
-Respond in the repository's [Discussions](https://github.com/jediwright/governedcrossing/discussions), in the thread "Feedback: recording access changes (draft, open until 12 October 2026)". Refer to questions by number. Each is set out in full in §4.
+Respond in the repository's [Discussions](https://github.com/jediwright/governedcrossing/discussions), in the thread "Feedback: recording access changes (draft)". Refer to questions by number. Each is set out in full in §4.
 
 1. **Q1.** Is the emitter's own agent grant, taken alone, the right test of who counts as its agent?
 2. **Q2.** Should one value, `access-change-observed`, carry two meanings, told apart by `actorRelation`, or should a gated change that diverged get its own value?
@@ -35,9 +35,9 @@ At the lexicon level the change is additive: no existing field or value changes.
 
 ## 2. How to respond
 
-- **Written:** the repository's [Discussions](https://github.com/jediwright/governedcrossing/discussions), thread "Feedback: recording access changes (draft, open until 12 October 2026)". This is the record of responses.
+- **Written:** the repository's [Discussions](https://github.com/jediwright/governedcrossing/discussions), thread "Feedback: recording access changes (draft)". This is the record of responses.
 - **Forum:** a short post in the Lexicon Community category of the AT Protocol community forum points here. Replies there are welcome and are logged by link, but the Discussion thread is the record.
-- **Live:** the Lexicon Community call, **Thursday 1 October 2026, 1 PM ET**. Points raised on the call will be summarized in the Discussion thread afterward, so they are on record. If the summary gets you wrong, correct it there.
+- **Live:** the Lexicon Community call, **Thursday 1 October 2026, 1 PM ET**. If the draft comes up on the call, a summary will be posted in the Discussion thread afterward, so it is on record. If the summary gets you wrong, correct it there.
 - Refer to questions by number (Q1 to Q5). Answer any subset. One-line answers are welcome, and so is "this is fine as written".
 - Comments on anything else in the appendices are welcome too. Please say which section they concern.
 
