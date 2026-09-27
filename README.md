@@ -8,6 +8,8 @@ The record's meaning is defined by the [`seam:CrossingRecord` vocabulary](https:
 
 Draft. The first binding is a set of AT Protocol lexicons in the `org.governedcrossing.temp.*` namespace. Anything under `temp` may change without notice. Stable `org.governedcrossing.*` names will be published separately and will not be implied by use of the drafts.
 
+Open for feedback: [`drafts/access-change.md`](drafts/access-change.md), a draft for recording access changes. Files in `drafts/` are not part of the specification.
+
 ## Principles
 
 - **The record lives with the person.** The canonical copy of a crossing record stays on the emitting party's own system. AT Protocol carries copies of it, never its home.
