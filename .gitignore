@@ -1,1 +1,19 @@
+# macOS
 .DS_Store
+._*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local GitHub Pages / Jekyll preview
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+
+# Secrets
+.env
+.env.*
