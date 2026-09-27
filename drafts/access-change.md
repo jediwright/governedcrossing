@@ -8,6 +8,7 @@
 - **Review so far.** Internal review only; no independent review. Four points have had no review at all: Q1 to Q4 below. Q5 rests on a reading of another project's source code that has not been tested at runtime.
 - **Before adoption it waits on** two things: this feedback window, and registration of its new values in the vocabulary (see the [README](../README.md#relation-to-the-vocabulary)). After that, this file is either replaced by adopted text in the lexicons and `CONFORMANCE.md`, or marked withdrawn here. It will not be deleted without notice.
 - **Feedback window.** Open until **Monday 26 October 2026, end of day US Eastern**. The window may be extended if people ask for more time; it will not be shortened. Prepared 2026-09-27.
+- **Changed after posting.** 2026-09-27: Q5's first point was narrowed. It now says the person giving access must already hold the group on their own system, and that the document's key reaches only the group's members whose prekeys they hold, not necessarily every member. No other text changed.
 
 **Open questions**
 
@@ -108,7 +109,7 @@ This wording is **already published** in the Known limits ([line 66 at `b5723e3`
 
 This concerns **Keyhive core at revision [`9a8c1d56`](https://github.com/inkandswitch/keyhive/tree/9a8c1d5623753565175bd51f63efd55b7c7aa431)** (`inkandswitch/keyhive`, `keyhive_core` 0.6.0, 2026-09-26). On our reading of the source at that revision, not yet tested at runtime:
 
-- someone with access to a document at a given level can give a whole group up to that level on the document, without being a member of the group, and the group's members then receive the document's key (at Read or above);
+- someone with access to a document at a given level can give a whole group up to that level on the document, without being a member of the group, provided their own system already holds the group (knowing its identifier is not enough). At Read or above, the document's key then goes to those of the group's members whose prekeys (published key-exchange keys) that system holds, which need not be every member;
 - similarly, a member of a group can add another member at up to its own level.
 
 Under the draft, the first is an access change on the document (`granularity: document`). The set of readers widens but stays bounded, so the regimes do not differ, as when a member is added to a group. The change is still recorded. If it was done by a person holding a grant from the document's owner, the owner's record would be `other-party`, and recording it is optional.
