@@ -33,7 +33,7 @@ The lexicons list every value currently registered for the vocabulary's controll
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT. See [LICENSE](https://github.com/jediwright/governedcrossing/blob/main/LICENSE).
 
 ---
 
