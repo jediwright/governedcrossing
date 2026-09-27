@@ -36,7 +36,7 @@ At the lexicon level the change is additive: no existing field or value changes.
 ## 2. How to respond
 
 - **Written:** the repository's [Discussions](https://github.com/jediwright/governedcrossing/discussions), thread "Feedback: recording access changes (draft)". This is the record of responses.
-- **Forum:** a short post in the Lexicon Community category of the AT Protocol community forum points here. Replies there are welcome and are logged by link, but the Discussion thread is the record.
+- **Forum:** a short post in the Lexicon Community category of the AT Protocol community forum points here. Replies there are just as welcome, and are kept together with the responses in the Discussion.
 - **Live:** the Lexicon Community call, **Thursday 1 October 2026, 1 PM ET**. If the draft comes up on the call, a summary will be posted in the Discussion thread afterward, so it is on record. If the summary gets you wrong, correct it there.
 - Refer to questions by number (Q1 to Q5). Answer any subset. One-line answers are welcome, and so is "this is fine as written".
 - Comments on anything else in the appendices are welcome too. Please say which section they concern.
