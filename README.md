@@ -11,8 +11,8 @@ Draft. The first binding is a set of AT Protocol lexicons in the `org.governedcr
 ## Principles
 
 - **The record lives with the person.** The canonical copy of a crossing record stays on the emitting party's own system. AT Protocol carries copies of it, never its home.
-- **A public copy discloses no more than the crossing did.** When a crossing is itself public, the full record may be published. When it is private, only a small commitment is published (a fingerprint of the record, who issued it, and when); the full record travels privately to the other party.
-- **Blocked crossings leave no public trace.** A blocked crossing disclosed nothing, so nothing about it is published. The record of the block stays with the party.
+- **A public copy discloses no more than the crossing did.** When a crossing is itself public, the full record may be published. When it is private, at most a small commitment is published (a fingerprint of the record, who issued it, and when); the full record travels privately to the other party.
+- **Crossings that did not go through leave no public trace.** Nothing is published about a blocked crossing, or about one whose act the emitter has not seen succeed. The record stays with the party.
 - **Records are signed and non-repudiable.** Every record carries its emitter's signature, following the [ATProtocol Attestation Specification v1.0](https://tangled.org/strings/ngerakines.me/3m3fy2xuahc22). This is a deliberate difference from permissioned spaces, which are designed to be deniable.
 - **Records describe what crossed; they never contain it.** A record carries digests and references only.
 - **Exposure claims are upper bounds.** Once data crosses into a globally indexed system, nobody can promise it will not be copied. Records say so (`exposure-unbounded`) instead of claiming more control than exists.

@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "DRAFT in the temp namespace; may change without notice. Public commitment to a privately held crossing record, published in the emitter's own repository. A remote proof per the ATProtocol Attestation Specification v1.0: `cid` is the CIDv1 of the committed record with `signatures` removed and `$sig` inserted, where `$sig` is this commitment record minus `cid`, plus `repository` set to the committed record's `emittedBy`. This CID therefore differs from the emitter inline-signature CID. Discloses existence, emitter and time only. Never published for blocked crossings.",
+      "description": "DRAFT in the temp namespace; may change without notice. Optional public commitment to the crossing-completion of a completed private substrate crossing, published in the emitter's own repository. A remote proof under the ATProtocol Attestation Specification v1.0 with this profile's repository rule: `cid` is the CIDv1 of the committed record with `signatures` removed and `$sig` inserted, where `$sig` is this commitment record minus `cid`, plus `repository` set to the committed record's `emittedBy`. The committed record is housed in no repository, so a verifier must be given `emittedBy` as the repository DID. This CID differs from the emitter inline-signature CID. Discloses existence, emitter and time only. Never published for a crossing that did not complete, for a crossing-intent, or for a blocked gate check.",
       "key": "tid",
       "record": {
         "type": "object",

@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "DRAFT in the temp namespace; may change without notice. A projection of a seam:CrossingRecord whose canonical copy lives on the emitting party's own substrate. Published publicly only when the crossing itself was public; private crossings publish only an org.governedcrossing.temp.commitment. Crossing records are intentionally non-repudiable (every record carries the emitter's inline signature), a deliberate difference from permissioned-space deniability. They carry digests and references of what crossed, never the crossed content. Value lists are open; a record conforms only when it uses the registered values of the seam:CrossingRecord vocabulary. See CONFORMANCE.md.",
+      "description": "DRAFT in the temp namespace; may change without notice. A projection of a seam:CrossingRecord whose canonical copy lives on the emitting party's own substrate. Published publicly only when the crossing itself was public and, for a substrate crossing, only once it completed; records of blocked gate checks are never published. Private crossings publish at most an org.governedcrossing.temp.commitment. Crossing records are intentionally non-repudiable (every record carries the emitter's inline signature), a deliberate difference from permissioned-space deniability. They carry digests and references of what crossed, never the crossed content. Value lists are open; a record conforms only when it uses the registered values of the seam:CrossingRecord vocabulary. See CONFORMANCE.md.",
       "key": "tid",
       "record": {
         "type": "object",
@@ -77,7 +77,7 @@
           "chainReference": {
             "type": "ref",
             "ref": "org.governedcrossing.temp.defs#recordRef",
-            "description": "Immediately upstream record. For crossing-completion: the crossing-intent record."
+            "description": "Immediately upstream record, by recordId and link CID. Required on a crossing-completion, naming its crossing-intent."
           },
           "chainDepth": {
             "type": "integer",
@@ -142,7 +142,7 @@
             "type": "bytes",
             "minLength": 16,
             "maxLength": 64,
-            "description": "Random salt. Required on any record for which a commitment is published, so a low-entropy record cannot be confirmed by guessing."
+            "description": "Random salt, at least 16 bytes, generated fresh for each record at emission. Every conformant record carries one (see CONFORMANCE.md), so that a predictable record, or a reference to it, cannot be confirmed by guessing."
           },
           "signatures": {
             "type": "array",

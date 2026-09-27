@@ -34,7 +34,7 @@
     },
     "recordRef": {
       "type": "object",
-      "description": "Reference to another crossing record. `recordId` is the record's substrate-independent identifier; `cid` is that record's emitter inline-signature CID (computed with the emitter signature's `$sig`).",
+      "description": "Reference to another crossing record. `recordId` is the record's substrate-independent identifier. `cid` is its link CID: the CIDv1 (DAG-CBOR, sha2-256) of the record with `signatures`, every `$type` key at any depth, `provenanceStatus`, `provenanceStatusBasis` and `supersededBy` removed, and no `$sig` inserted. A content address, not a signature or proof.",
       "required": [
         "recordId",
         "cid"
@@ -156,15 +156,6 @@
           ],
           "maxLength": 64
         },
-        "crossingMode": {
-          "type": "string",
-          "description": "Provisional; may change before the stable namespace. data-transfer: content moves into the target regime (default when absent). access-change: the record stays in place and its access regime changes. An access change counts as a crossing only when it moves data into a different regime, never for sharing inside the party's own system.",
-          "knownValues": [
-            "data-transfer",
-            "access-change"
-          ],
-          "maxLength": 64
-        },
         "regimeAcknowledgment": {
           "type": "string",
           "maxLength": 3000,
@@ -205,7 +196,7 @@
         },
         "gateResult": {
           "type": "string",
-          "description": "blocked records are never projected publicly (no commitment); they stay on the party's substrate.",
+          "description": "A record of a blocked gate check is never published in any form (no commitment, no projection); it stays on the party's substrate.",
           "knownValues": [
             "pass",
             "blocked"
@@ -220,7 +211,7 @@
     },
     "crossingCompletion": {
       "type": "object",
-      "description": "Instance extension for recordType crossing-completion (governanceEvent substrate-crossing). Emitted only after the crossing act succeeds; the intent is referenced by the record's chainReference. For access-change crossings the target is the record that stayed in place, at the moment its access changed.",
+      "description": "Instance extension for recordType crossing-completion (governanceEvent substrate-crossing). Must be emitted whenever the emitter observes that the crossing act succeeded, including after crossingTimeoutHorizon; the intent is referenced by the record's chainReference.",
       "required": [
         "crossingTargetURI",
         "crossingTargetCID",
