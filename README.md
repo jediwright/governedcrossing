@@ -20,7 +20,7 @@ One public crossing, recorded as an intent and a completion. Published 2 October
 | Intent | `at://did:plc:4xoefmmbsulm4xns3kbb6mnk/org.governedcrossing.temp.crossingRecord/3mwuctw3bov2g` |
 | Completion | `at://did:plc:4xoefmmbsulm4xns3kbb6mnk/org.governedcrossing.temp.crossingRecord/3mwuctwkdx62t` |
 
-The intent was written before the entry was published. The completion was written after the publish succeeded, and links back to the intent. The published records are copies; the signed originals stay on the emitter's own system.
+The crossing code wrote an intent before the entry was published, and a completion after the publish succeeded. Both were then put into this record format and signed, about eight minutes after the crossing; the completion links back to the intent. The timestamps inside the records are the emitter's own declaration of when each was first written. The published records are copies; the signed originals stay on the emitter's own system.
 
 **Check them yourself**
 
@@ -30,9 +30,9 @@ The intent was written before the entry was published. The completion was writte
 
 **What has and has not been verified**
 
-The signatures follow the ATProtocol Attestation Specification v1.0 and `CONFORMANCE.md` section 3. They verify with the code in `tools/`, which is this project's own code. The one independent tool we know of, `atproto-attestation-verify` 0.14.5, rejects them: it hashes a `bytes` field as JSON text where the specification and the AT Protocol data model use a CBOR byte string, and every record here carries a `bytes` salt. That tool is by the specification's author, and the difference is being reported to its author. No independent tool currently accepts these signatures.
+The signatures follow the ATProtocol Attestation Specification v1.0 and `CONFORMANCE.md` section 3. They verify with the code in `tools/`, which is this project's own code. The one independent tool we know of, `atproto-attestation-verify` 0.14.5, rejects them: it hashes a `bytes` field as JSON text where the specification and the AT Protocol data model use a CBOR byte string, and every record here carries a `bytes` salt. That tool is by the specification's author, and the difference is being reported to its author. No independent tool that we know of currently accepts these signatures.
 
-The host accepted both records without validating them: it does not resolve published lexicons and reported the validation status as `unknown`. The records were validated against the lexicons in this repository before they were published.
+The host accepted both records without validating them and reported the validation status as `unknown`, which is what the reference server does for a lexicon it does not have built in. The records were validated against the lexicons in this repository before they were published.
 
 **Notes**
 
