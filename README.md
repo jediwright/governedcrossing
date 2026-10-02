@@ -10,6 +10,37 @@ Draft. The first binding is a set of AT Protocol lexicons in the `org.governedcr
 
 Open for feedback: [`drafts/access-change.md`](drafts/access-change.md), a draft for recording access changes. Files in `drafts/` are not part of the specification.
 
+## Live examples
+
+One public crossing, recorded as an intent and a completion. Published 2 October 2026 (UTC) from a project test account.
+
+| | AT-URI |
+|---|---|
+| The entry that crossed | `at://did:plc:4xoefmmbsulm4xns3kbb6mnk/com.whtwnd.blog.entry/3mwucfb56cu2n` |
+| Intent | `at://did:plc:4xoefmmbsulm4xns3kbb6mnk/org.governedcrossing.temp.crossingRecord/3mwuctw3bov2g` |
+| Completion | `at://did:plc:4xoefmmbsulm4xns3kbb6mnk/org.governedcrossing.temp.crossingRecord/3mwuctwkdx62t` |
+
+The crossing code wrote an intent before the entry was published, and a completion after the publish succeeded. Both were then put into this record format and signed, about eight minutes after the crossing; the completion links back to the intent. The timestamps inside the records are the emitter's own declaration of when each was first written. The published records are copies; the signed originals stay on the emitter's own system.
+
+**Check them yourself**
+
+1. Open either record in any PDS browser, or fetch it with `com.atproto.repo.getRecord`.
+2. In the completion, `chainReference.recordId` is the intent's `recordId`, and `chainReference.cid` is the intent's link CID ([`CONFORMANCE.md`](CONFORMANCE.md) section 7).
+3. Run `npm ci` in [`tools/`](tools/), then `npm run verify -- <AT-URI>`. It verifies the emitter signature against the key in the DID document and checks the link.
+
+**What has and has not been verified**
+
+The signatures follow the ATProtocol Attestation Specification v1.0 and `CONFORMANCE.md` section 3. They verify with the code in `tools/`, which is this project's own code. The one independent tool we know of, `atproto-attestation-verify` 0.14.5, rejects them: it hashes a `bytes` field as JSON text where the specification and the AT Protocol data model use a CBOR byte string, and every record here carries a `bytes` salt. That tool is by the specification's author, and the difference is being reported to its author. No independent tool that we know of currently accepts these signatures.
+
+The host accepted both records without validating them and reported the validation status as `unknown`, which is what the reference server does for a lexicon it does not have built in. The records were validated against the lexicons in this repository before they were published.
+
+**Notes**
+
+- Made against the lexicons at commit `cef92b4`. The `temp` lexicons are drafts. When they change, a new pair will be added and this one marked superseded; it will not be deleted.
+- The entry's title carries the emitter's local date, 1 October. Record timestamps are UTC.
+- The crossing ran on prototype code from [`jediwright/employment-seam`](https://github.com/jediwright/employment-seam) at commit `fb05ea1`. The `keyhive:` and `automerge:` values in the intent name the software that held the source document.
+- The account is hosted, so the intent declares `identityCustodyClass: provider-custodied`.
+
 ## Principles
 
 - **The record lives with the person.** The canonical copy of a crossing record stays on the emitting party's own system. AT Protocol carries copies of it, never its home.
@@ -27,6 +58,7 @@ lexicons/org/governedcrossing/temp/
   commitment.json       the public commitment to a privately held record
   defs.json             signature type, record references, crossing extensions
 CONFORMANCE.md          rules a record must meet that a lexicon cannot express
+tools/                  scripts that produced, checked and published the live examples
 ```
 
 ## Relation to the vocabulary
