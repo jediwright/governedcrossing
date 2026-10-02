@@ -2,7 +2,7 @@
 
 A governed crossing record is evidence that data crossed from a person's own system into shared infrastructure: what was authorized to cross, by whom, when, under what exposure claim, and where it landed. This repository holds the ways that record is written down (bindings), the rules a record must meet beyond its schema (conformance), and, in time, test vectors and a reference verifier.
 
-[![The Governed Crossing — motion plate](motion-plate/preview.jpg)](https://governedcrossing.org/motion-plate/)
+<a href="https://governedcrossing.org/motion-plate/" target="_blank" rel="noopener"><img src="motion-plate/preview.jpg" alt="The Governed Crossing — motion plate"></a>
 
 *One crossing, start to finish. Click through for the animated version.*
 
